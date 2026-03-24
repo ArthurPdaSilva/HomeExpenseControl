@@ -19,15 +19,32 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public void Post([FromBody] NewUserDTO newUser)
+        public ActionResult Post([FromBody] UserDTO newUser)
         {
-            _userService.Create(newUser);
+            try
+            {
+                _userService.Create(newUser);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // PUT api/<UserController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public ActionResult Put(Guid id, [FromBody] UserDTO updateUser)
         {
+            try
+            {
+                _userService.Update(id, updateUser);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // DELETE api/<UserController>/5

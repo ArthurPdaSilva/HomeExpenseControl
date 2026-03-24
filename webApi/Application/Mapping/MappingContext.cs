@@ -11,7 +11,7 @@ namespace Application.Mapping
     {
         public MappingContext()
         {
-            CreateMap<NewUserDTO, User>();
+            CreateMap<UserDTO, User>();
         }
     }
 }

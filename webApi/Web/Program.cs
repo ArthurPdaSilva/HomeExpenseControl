@@ -1,10 +1,14 @@
 
+using Application.DTOs;
 using Application.Mapping;
 using Application.Services;
 using Application.Services.Interfaces;
+using Application.Validators;
 using Domain;
 using Domain.Repositories;
 using Domain.Repositories.Interfaces;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 
@@ -26,6 +30,7 @@ namespace Web
             );
 
             //Realizando as injeções de dependências nessa parte:
+            builder.Services.AddScoped<IValidator<UserDTO>, UserDTOValidator>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
 

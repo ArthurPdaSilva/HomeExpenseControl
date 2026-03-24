@@ -7,6 +7,7 @@ namespace Application.Services.Interfaces
     /// </summary>
     public interface IUserService
     {
-        public void Create(NewUserDTO user);
+        public void Create(UserDTO user);
+        public void Update(Guid id, UserDTO user);
     }
 }

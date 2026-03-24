@@ -43,7 +43,7 @@ namespace Domain.Repositories
 
         public void Update(User entity)
         {
-            _context.Update(entity);
+            _context.Users.Update(entity);
             _context.SaveChanges();
         }
     }
