@@ -16,30 +16,30 @@ namespace Domain.Repositories
             _context = context;
         }
 
-        public void Create(Category entity)
+        public async Task CreateAsync(Category entity)
         {
             _context.Categories.Add(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public IList<Category> GetAll()
+        public async Task<IList<Category>> GetAllAsync()
         {
             //AsNoTracking é para ele não gastar processamento trackeando em consultas
-            return _context.Categories.AsNoTracking().ToList();
+            return await _context.Categories.AsNoTracking().ToListAsync();
         }
 
-        public Category? GetById(Guid id)
+        public async Task<Category?> GetByIdAsync(Guid id)
         {
-            return _context.Categories.Find(id);
+            return await _context.Categories.FindAsync(id);
         }
 
-        //Delete e Update não serão implementados nesse projeto
-        public void Delete(Category entity)
+        //Delete e Update não serão implementados na Categoria
+        public Task DeleteAsync(Category entity)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Category entity)
+        public Task UpdateAsync(Category entity)
         {
             throw new NotImplementedException();
         }

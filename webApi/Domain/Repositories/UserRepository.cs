@@ -16,32 +16,37 @@ namespace Domain.Repositories
             _context = context;
         }
 
-        public void Create(User entity)
+        public async Task CreateAsync(User entity)
         {
             _context.Users.Add(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(User entity)
+        public async Task DeleteAsync(User entity)
         {
             entity.IsDeleted = true;
-            _context.SaveChanges();
+
+            //Apagando todas as transações se um usuário for apagado
+            foreach (var t in entity.Transactions)
+                t.IsDeleted = true;
+
+            await _context.SaveChangesAsync();
         }
 
-        public IList<User> GetAll()
+        public async Task<IList<User>> GetAllAsync()
         {
-            return _context.Users.AsNoTracking().ToList();
+            return await _context.Users.AsNoTracking().ToListAsync();
         }
 
-        public User? GetById(Guid id)
+        public async Task<User?> GetByIdAsync(Guid id)
         {
-            return _context.Users.Find(id);
+            return await _context.Users.FindAsync(id);
         }
 
-        public void Update(User entity)
+        public async Task UpdateAsync(User entity)
         {
             _context.Users.Update(entity);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

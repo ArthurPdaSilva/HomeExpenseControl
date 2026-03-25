@@ -23,52 +23,52 @@ namespace Application.Services
             _validator = validator;
         }
 
-        public void Create(UserDTO user)
+        public async Task CreateAsync(UserDTO user)
         {
             //To validando o usuário usando o fluent api e se der algum erro, eu lanço uma exceção
-            _validator.ValidateAndThrow(user);
+            await _validator.ValidateAndThrowAsync(user);
             var newUser = _mapper.Map<User>(user);
-            _userRepository.Create(newUser);
+            await _userRepository.CreateAsync(newUser);
         }
 
-        public void Update(Guid id, UserDTO user)
+        public async Task UpdateAsync(Guid id, UserDTO user)
         {
             //Verificando se o usuário realmente existe
-            var userOrigin = _userRepository.GetById(id);
+            var userOrigin = await _userRepository.GetByIdAsync(id);
             if (userOrigin is null)
             {
                 throw new Exception("Usuário não encontrado");
             }
 
 
-            _validator.ValidateAndThrow(user);
+            await _validator.ValidateAndThrowAsync(user);
             //Mapeando os atributos mudados para o usuário já encontrado, para não dar erro no update
             _mapper.Map(user, userOrigin);
-            _userRepository.Update(userOrigin);
+            await _userRepository.UpdateAsync(userOrigin);
         }
 
-        public void Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             //Verificando se o usuário realmente existe
-            var userOrigin = _userRepository.GetById(id);
+            var userOrigin = await _userRepository.GetByIdAsync(id);
             if (userOrigin is null)
             {
                 throw new Exception("Usuário não encontrado");
             }
 
 
-            _userRepository.Delete(userOrigin);
+            await _userRepository.DeleteAsync(userOrigin);
         }
 
-        public IList<UserListDTO> GetAll()
+        public async Task<IList<UserListDTO>> GetAllAsync()
         {
-            var users = _userRepository.GetAll();
+            var users = await _userRepository.GetAllAsync();
             return _mapper.Map<IList<UserListDTO>>(users);
         }
 
-        public UserDTO GetById(Guid id)
+        public async Task<UserDTO> GetByIdAsync(Guid id)
         {
-            var user = _userRepository.GetById(id);
+            var user = await _userRepository.GetByIdAsync(id);
             if (user is null)
             {
                 throw new Exception("Usuário não encontrado");

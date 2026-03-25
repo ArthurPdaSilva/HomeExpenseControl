@@ -6,10 +6,14 @@
     /// </summary>
     public interface IGenericRepository<T>
     {
-        public void Create(T entity);
-        public void Update(T entity);
-        public T? GetById(Guid id);
-        public IList<T> GetAll();
-        public void Delete(T entity);
+        public Task CreateAsync(T entity);
+
+        public Task UpdateAsync(T entity);
+
+        public Task<T?> GetByIdAsync(Guid id);
+
+        public Task<IList<T>> GetAllAsync();
+
+        public Task DeleteAsync(T entity);
     }
 }

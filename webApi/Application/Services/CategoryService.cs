@@ -23,27 +23,37 @@ namespace Application.Services
             _validator = validator;
         }
 
-        public void Create(CategoryDTO category)
+        public async Task CreateAsync(CategoryDTO category)
         {
-            _validator.ValidateAndThrow(category);
+            await _validator.ValidateAndThrowAsync(category);
             var newCategory = _mapper.Map<Category>(category);
-            _categoryRepository.Create(newCategory);
+            await _categoryRepository.CreateAsync(newCategory);
         }
 
-        public IList<CategoryListDTO> GetAll()
+        public async Task<IList<CategoryListDTO>> GetAllAsync()
         {
-            var categories = _categoryRepository.GetAll();
+            var categories = await _categoryRepository.GetAllAsync();
             return _mapper.Map<IList<CategoryListDTO>>(categories);
         }
 
-        public CategoryDTO GetById(Guid id)
+        public async Task<CategoryDTO> GetByIdAsync(Guid id)
         {
-            var category = _categoryRepository.GetById(id);
+            var category = await _categoryRepository.GetByIdAsync(id);
             if (category is null)
             {
                 throw new Exception("Categoria não encontrada");
             }
             return _mapper.Map<CategoryDTO>(category);
+        }
+
+        public Task UpdateAsync(Guid id, CategoryDTO dto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task DeleteAsync(Guid id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

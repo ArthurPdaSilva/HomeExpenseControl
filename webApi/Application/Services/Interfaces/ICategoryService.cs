@@ -3,12 +3,9 @@
 namespace Application.Services.Interfaces
 {
     /// <summary>
-    /// Interface que delimita as funções que Category terá acesso
+    /// Interface que delimita as funções que Categoria terá acesso
     /// </summary>
-    public interface ICategoryService
+    public interface ICategoryService : IGenericService<CategoryDTO, CategoryListDTO>
     {
-        public void Create(CategoryDTO user);
-        public IList<CategoryListDTO> GetAll();
-        public CategoryDTO GetById(Guid id);
     }
 }

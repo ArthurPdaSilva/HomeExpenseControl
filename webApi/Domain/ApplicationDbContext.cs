@@ -26,14 +26,14 @@ namespace Domain
             modelBuilder.Entity<Transaction>()
                 .HasOne<User>()
                 .WithMany()
-                .HasForeignKey(t => t.UserId)
-                .OnDelete(DeleteBehavior.Cascade); // Apagou o User, apaga as Transactions juntos
+                .HasForeignKey(t => t.UserId)  // Removi o delete cascade, pois o delete tanto de usuário quanto da transação são safe delete
+                .OnDelete(DeleteBehavior.Restrict); //Impedir delete físico no Banco
 
             // Configuração da relação categoria x transação (1 para 1)
             modelBuilder.Entity<Transaction>()
-                .HasOne<Category>() 
-                .WithOne()          
-                .HasForeignKey<Transaction>(t => t.CategoryId); 
+                .HasOne<Category>()
+                .WithOne()
+                .HasForeignKey<Transaction>(t => t.CategoryId);
         }
     }
 }

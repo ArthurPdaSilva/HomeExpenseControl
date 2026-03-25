@@ -19,11 +19,11 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] UserDTO newUser)
+        public async Task<ActionResult> Post([FromBody] UserDTO newUser)
         {
             try
             {
-                _userService.Create(newUser);
+                await _userService.CreateAsync(newUser);
                 return Ok();
             }
             catch (Exception ex)
@@ -33,11 +33,11 @@ namespace Web.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult Put(Guid id, [FromBody] UserDTO updateUser)
+        public async Task<ActionResult> Put(Guid id, [FromBody] UserDTO updateUser)
         {
             try
             {
-                _userService.Update(id, updateUser);
+                await _userService.UpdateAsync(id, updateUser);
                 return Ok();
             }
             catch (Exception ex)
@@ -47,11 +47,11 @@ namespace Web.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(Guid id)
+        public async Task<ActionResult> Delete(Guid id)
         {
             try
             {
-                _userService.Delete(id);
+                await _userService.DeleteAsync(id);
                 return Ok();
             }
             catch (Exception ex)
@@ -61,11 +61,12 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get()
+        public async Task<ActionResult> Get()
         {
             try
             {
-                return Ok(_userService.GetAll());
+                var users = await _userService.GetAllAsync();
+                return Ok(users);
             }
             catch (Exception ex)
             {
@@ -74,11 +75,12 @@ namespace Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult Get(Guid id)
+        public async Task<ActionResult> Get(Guid id)
         {
             try
             {
-                return Ok(_userService.GetById(id));
+                var user = await _userService.GetByIdAsync(id);
+                return Ok(user);
             }
             catch (Exception ex)
             {

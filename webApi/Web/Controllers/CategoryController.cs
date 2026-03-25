@@ -19,11 +19,11 @@ namespace Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult Get()
+        public async Task<ActionResult> Get()
         {
             try
             {
-                var categories = _categoryService.GetAll();
+                var categories = await _categoryService.GetAllAsync();
                 return Ok(categories);
             }
             catch (Exception ex)
@@ -33,11 +33,11 @@ namespace Web.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult Get(Guid id)
+        public async Task<ActionResult> Get(Guid id)
         {
             try
             {
-                var category = _categoryService.GetById(id);
+                var category = await _categoryService.GetByIdAsync(id);
                 return Ok(category);
             }
             catch (Exception ex)
@@ -47,11 +47,11 @@ namespace Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult Post([FromBody] CategoryDTO newCategory)
+        public async Task<ActionResult> Post([FromBody] CategoryDTO newCategory)
         {
             try
             {
-                _categoryService.Create(newCategory);
+                await _categoryService.CreateAsync(newCategory);
                 return Ok();
             }
             catch (Exception ex)
