@@ -1,4 +1,4 @@
-import { DeleteIcon, Edit } from "lucide-react";
+import { Pencil, Trash2 } from "lucide-react";
 import {
 	MRT_ActionMenuItem,
 	type MRT_ColumnDef,
@@ -6,6 +6,7 @@ import {
 	type MRT_TableInstance,
 } from "material-react-table";
 import { useMemo, useState } from "react";
+import { useNavigate } from "react-router";
 import { DeleteModal } from "../../components/DeleteModal";
 import { ListTemplate } from "../../Templates/ListTemplate";
 import { useDeleteUser, useGetUsers } from "./services";
@@ -20,6 +21,7 @@ export const Users = () => {
 	const [deleteOpen, setDeleteOpen] = useState(false);
 	const [deleteId, setDeleteId] = useState<string | null>(null);
 	const { mutate: handleDelete, isPending } = useDeleteUser();
+	const navigate = useNavigate();
 
 	// Configuração das colunas da tabela de Usuários
 	const columns = useMemo<MRT_ColumnDef<User>[]>(
@@ -47,14 +49,14 @@ export const Users = () => {
 		closeMenu: () => void;
 	}) => [
 		<MRT_ActionMenuItem
-			icon={<Edit />}
+			icon={<Pencil />}
 			key="edit"
 			label="Editar"
-			onClick={() => console.info("Edit")}
+			onClick={() => navigate(`/edit-user/${row.original.id}`)}
 			table={table}
 		/>,
 		<MRT_ActionMenuItem
-			icon={<DeleteIcon />}
+			icon={<Trash2 />}
 			key="delete"
 			label="Deletar"
 			onClick={() => {
@@ -90,6 +92,7 @@ export const Users = () => {
 				columns={columns}
 				data={data || []}
 				title="Usuários"
+				handleAdd={() => navigate("/add-user")}
 				isFetching={isFetching || isPending}
 				// Row Actions são as ações de Editar e Deletar, que ficam disponíveis ao clicar no ícone de "três pontinhos" no final de cada linha da tabela. Optei por colocar essas ações aqui no template mesmo, já que a maioria das páginas de listagem vão ter ações semelhantes, e isso evita repetição de código.
 				renderRowActionMenuItems={rows}

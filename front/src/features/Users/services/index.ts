@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@tanstack/react-query";
-import { queryClient } from "../../../App";
 import { BASE_URL } from "../../../config/api";
+import { queryClient } from "../../../config/queryClient";
+import type { UserValidation } from "../Add/schema";
 import type { User } from "../types";
 
 /**
@@ -31,7 +32,27 @@ export const useDeleteUser = () => {
 				throw new Error(`Failed to delete user: ${response.status}`);
 		},
 		onSuccess: () => {
-			// Invalida a query de usuários para refetch automático após a deleção
+			// Invalido a querie de usuários para que ela seja refetchada e mostre os dados atualizados após a deleção
+			queryClient.invalidateQueries({ queryKey: ["users"] });
+		},
+	});
+};
+
+/**
+ * Hook para criar um usuário na API
+ */
+export const useCreateUser = () => {
+	return useMutation({
+		mutationFn: async (data: UserValidation) => {
+			const response = await fetch(`${BASE_URL}/api/User`, {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify(data),
+			});
+			if (!response.ok)
+				throw new Error(`Failed to create user: ${response.status}`);
+		},
+		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["users"] });
 		},
 	});

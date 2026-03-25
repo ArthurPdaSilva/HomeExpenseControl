@@ -1,9 +1,8 @@
 import { TanStackDevtools } from "@tanstack/react-devtools";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtoolsPanel } from "@tanstack/react-query-devtools";
+import { queryClient } from "./config/queryClient";
 import { RouteRoot } from "./route";
-
-export const queryClient = new QueryClient();
 
 export const App = () => {
 	return (
