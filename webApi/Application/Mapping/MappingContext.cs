@@ -1,4 +1,5 @@
 ﻿using Application.DTOs.CategoryDTOs;
+using Application.DTOs.TransactionDTOs;
 using Application.DTOs.UserDTOs;
 using AutoMapper;
 using Domain.Entities;
@@ -19,6 +20,10 @@ namespace Application.Mapping
             // Mapeando CategoryDTO para User e vice-versa
             CreateMap<CategoryDTO, Category>().ReverseMap();
             CreateMap<Category, CategoryListDTO>();
+
+            // Mapeando CategoryDTO para User e vice-versa
+            CreateMap<TransactionDTO, Transaction>().ReverseMap();
+            CreateMap<Transaction, TransactionListDTO>();
         }
     }
 }
