@@ -1,6 +1,4 @@
-﻿using Domain.Entities;
-
-namespace Domain.Repositories.Interfaces
+﻿namespace Domain.Repositories.Interfaces
 {
 
     /// <summary>

@@ -1,6 +1,6 @@
 ﻿using Domain.Enums;
 
-namespace Application.DTOs.CategoryDTOs 
+namespace Application.DTOs.CategoryDTOs
 {
 
     /// <summary>
