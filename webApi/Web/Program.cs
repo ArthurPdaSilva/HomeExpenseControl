@@ -1,5 +1,5 @@
-
-using Application.DTOs;
+using Application.DTOs.CategoryDTOs;
+using Application.DTOs.UserDTOs;
 using Application.Mapping;
 using Application.Services;
 using Application.Services.Interfaces;
@@ -31,8 +31,11 @@ namespace Web
 
             //Realizando as injeções de dependências nessa parte:
             builder.Services.AddScoped<IValidator<UserDTO>, UserDTOValidator>();
+            builder.Services.AddScoped<IValidator<CategoryDTO>, CategoryDTOValidator>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+            builder.Services.AddScoped<ICategoryService, CategoryService>();
+            builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 
 
             //Configurando Log Personalizado nos controllers
@@ -55,6 +58,8 @@ namespace Web
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Home Expensive API", Version = "v1" });
             });
 
+
+            // Adicionando cors e permitindo o acesso do meu frontend
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowSpecificOrigin", policy =>
