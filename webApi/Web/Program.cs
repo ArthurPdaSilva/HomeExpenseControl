@@ -77,6 +77,7 @@ namespace Web
             });
 
             var app = builder.Build();
+            app.UseCors("AllowSpecificOrigin");
 
             if (app.Environment.IsDevelopment())
             {
@@ -89,7 +90,7 @@ namespace Web
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
+            // Adicionando política de cors
 
             app.MapControllers();
 

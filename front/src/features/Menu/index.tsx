@@ -1,5 +1,5 @@
-import { MobileMenu } from "./MobileMenu";
-import { Sidebar } from "./Sidebar";
+import { MobileMenu } from "./components/MobileMenu";
+import { Sidebar } from "./components/Sidebar";
 
 /**
  * Componente de Menu
