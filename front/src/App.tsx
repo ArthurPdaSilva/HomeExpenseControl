@@ -1,3 +1,5 @@
+import { RouteRoot } from "./route";
+
 export const App = () => {
-	return <>Hello World</>;
+	return <RouteRoot />;
 };
