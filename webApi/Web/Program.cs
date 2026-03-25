@@ -1,4 +1,5 @@
 using Application.DTOs.CategoryDTOs;
+using Application.DTOs.TransactionDTOs;
 using Application.DTOs.UserDTOs;
 using Application.Mapping;
 using Application.Services;
@@ -31,11 +32,15 @@ namespace Web
 
             //Realizando as injeções de dependências nessa parte:
             builder.Services.AddScoped<IValidator<UserDTO>, UserDTOValidator>();
-            builder.Services.AddScoped<IValidator<CategoryDTO>, CategoryDTOValidator>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+            builder.Services.AddScoped<IValidator<CategoryDTO>, CategoryDTOValidator>();
             builder.Services.AddScoped<ICategoryService, CategoryService>();
             builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+            builder.Services.AddScoped<IValidator<TransactionDTO>, TransactionDTOValidator>();
+            builder.Services.AddScoped<ITransactionService, TransactionService>();
             builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
 
