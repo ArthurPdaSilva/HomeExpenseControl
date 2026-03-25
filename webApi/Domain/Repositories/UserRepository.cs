@@ -26,9 +26,12 @@ namespace Domain.Repositories
         {
             entity.IsDeleted = true;
 
-            //Apagando todas as transações se um usuário for apagado
-            foreach (var t in entity.Transactions)
-                t.IsDeleted = true;
+            //Apagando todas as transações se um usuário for apagado (se o usuário tiver transação)
+            if (entity.Transactions is not null)
+            {
+                foreach (var t in entity.Transactions)
+                    t.IsDeleted = true;
+            }
 
             await _context.SaveChangesAsync();
         }

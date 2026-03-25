@@ -1,4 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { queryClient } from "../../../App";
 import { BASE_URL } from "../../../config/api";
 import type { User } from "../types";
 
@@ -14,5 +15,24 @@ export const useGetUsers = () => {
 			return await response.json();
 		},
 		retry: false,
+	});
+};
+
+/**
+ * Hook para apagar um usuário da API pelo ID
+ */
+export const useDeleteUser = () => {
+	return useMutation({
+		mutationFn: async (id: string) => {
+			const response = await fetch(`${BASE_URL}/api/User/${id}`, {
+				method: "DELETE",
+			});
+			if (!response.ok)
+				throw new Error(`Failed to delete user: ${response.status}`);
+		},
+		onSuccess: () => {
+			// Invalida a query de usuários para refetch automático após a deleção
+			queryClient.invalidateQueries({ queryKey: ["users"] });
+		},
 	});
 };
