@@ -1,5 +1,6 @@
-import { MaterialReactTable, type MRT_ColumnDef } from "material-react-table";
+import type { MRT_ColumnDef } from "material-react-table";
 import { useMemo } from "react";
+import { ListTemplate } from "../../Templates/ListTemplate";
 import { useGetUsers } from "./services";
 import type { User } from "./types";
 
@@ -10,7 +11,7 @@ import type { User } from "./types";
 export const Users = () => {
 	const { data, isFetching } = useGetUsers();
 
-	// Configuração das colundas da tabela de Usuários
+	// Configuração das colunas da tabela de Usuários
 	const columns = useMemo<MRT_ColumnDef<User>[]>(
 		() => [
 			{
@@ -26,17 +27,11 @@ export const Users = () => {
 	);
 
 	return (
-		<div className="flex flex-col flex-1 gap-5">
-			<h1 className="text-4xl font-semibold">Usuários</h1>
-			{/* Tabela do material react table*/}
-			<MaterialReactTable
-				data={data || []}
-				columns={columns}
-				muiTableContainerProps={{
-					sx: { height: "450px" },
-				}}
-				state={{ isLoading: isFetching }}
-			/>
-		</div>
+		<ListTemplate<User>
+			columns={columns}
+			data={data || []}
+			title="Usuários"
+			isFetching={isFetching}
+		/>
 	);
 };

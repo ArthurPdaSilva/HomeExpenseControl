@@ -62,9 +62,7 @@ namespace Application.Validators
         // Essa função vai checar se o tipo da categoria é o mesmo da transação, se existir transação
         private async Task<bool> CategoryMatchesType(TransactionDTO dto, CancellationToken cancellationToken)
         {
-            if (!dto.CategoryId.HasValue) return true; // categoria é opcional
-
-            var category = await _categoryService.GetByIdAsync(dto.CategoryId.Value);
+            var category = await _categoryService.GetByIdAsync(dto.CategoryId);
             if (category == null) return false;
 
 

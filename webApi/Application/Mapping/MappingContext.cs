@@ -21,9 +21,15 @@ namespace Application.Mapping
             CreateMap<CategoryDTO, Category>().ReverseMap();
             CreateMap<Category, CategoryListDTO>();
 
-            // Mapeando CategoryDTO para User e vice-versa
+            // Mapeando Transaction para DTO
             CreateMap<TransactionDTO, Transaction>().ReverseMap();
-            CreateMap<Transaction, TransactionListDTO>();
+
+            //Realizando o mapeamento de Transaction para TransactionListDTO, incluindo os campos de UserName e CategoryDescription para facilitar a exibição nas tabelas
+            CreateMap<Transaction, TransactionListDTO>()
+                .ForMember(dest => dest.UserName, 
+                           opt => opt.MapFrom(src => src.User != null ? src.User.Name : string.Empty))
+                .ForMember(dest => dest.CategoryDescription, 
+                           opt => opt.MapFrom(src => src.Category != null ? src.Category.Description : null));
         }
     }
 }

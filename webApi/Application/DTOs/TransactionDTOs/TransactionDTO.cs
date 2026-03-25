@@ -12,8 +12,8 @@ namespace Application.DTOs.TransactionDTOs
         public required decimal Value { get; set; }
         public required ETransactionType Type { get; set; }
 
-        // Categoria é opcional
-        public Guid? CategoryId { get; set; }
+        // Categoria agora é obrigatória, pois uma transação deve estar associada a uma categoria
+        public Guid CategoryId { get; set; }
 
         // Usuário é obrigatório
         public required Guid UserId { get; set; }

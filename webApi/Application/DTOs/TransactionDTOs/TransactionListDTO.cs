@@ -8,6 +8,7 @@ namespace Application.DTOs.TransactionDTOs
         public required string Description { get; set; }
         public required decimal Value { get; set; }
         public required ETransactionType Type { get; set; }
-        public Guid? CategoryId { get; set; }
+        public required string CategoryDescription { get; set; }
+        public required string UserName { get; set; }
     }
 }

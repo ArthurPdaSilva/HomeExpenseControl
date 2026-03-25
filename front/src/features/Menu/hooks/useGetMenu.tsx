@@ -1,4 +1,10 @@
-import { ArrowLeftRight, LayoutGrid, Users } from "lucide-react";
+import {
+	ArrowLeftRight,
+	LayoutGrid,
+	PieChart,
+	UserCheck,
+	Users,
+} from "lucide-react";
 import type { JSX } from "react";
 import { useLocation } from "react-router";
 
@@ -11,8 +17,18 @@ export const baseClass =
 
 // Title e Link são constantes ao invés de string para facilitar o autocomplete e aumentar a segurança na tipagem
 type MenuProps = {
-	title: "Usuários" | "Categorias" | "Transações";
-	link: "/" | "/categories" | "/transactions";
+	title:
+		| "Usuários"
+		| "Categorias"
+		| "Transações"
+		| "Totais por Pessoa"
+		| "Totais por Categoria";
+	link:
+		| "/"
+		| "/categories"
+		| "/transactions"
+		| "/totals-by-person"
+		| "/totals-by-category";
 	Icon: JSX.Element;
 };
 
@@ -20,6 +36,16 @@ const menu: MenuProps[] = [
 	{ title: "Usuários", link: "/", Icon: <Users /> },
 	{ title: "Categorias", link: "/categories", Icon: <LayoutGrid /> },
 	{ title: "Transações", link: "/transactions", Icon: <ArrowLeftRight /> },
+	{
+		title: "Totais por Pessoa",
+		link: "/totals-by-person",
+		Icon: <UserCheck />,
+	},
+	{
+		title: "Totais por Categoria",
+		link: "/totals-by-category",
+		Icon: <PieChart />,
+	},
 ];
 
 /**

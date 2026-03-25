@@ -12,5 +12,7 @@ namespace Domain.Entities
         public required string Description { get; set; }
         // Atributo responsável pelas categorias
         public required EPurposeType Purpose { get; set; }
+        // Adicionando uma referencia em Categoria a lista de Transactions para facilitar a consulta por total de transferência por categoria
+        public required ICollection<Transaction> Transactions { get; set; }
     }
 }
