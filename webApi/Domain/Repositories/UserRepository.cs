@@ -4,6 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Repositories
 {
+    /// <summary>
+    /// Repositório único do usuário
+    /// </summary>
     public class UserRepository : IUserRepository
     {
         private readonly ApplicationDbContext _context;
@@ -19,15 +22,9 @@ namespace Domain.Repositories
             _context.SaveChanges();
         }
 
-        public void Delete(Guid id)
+        public void Delete(User entity)
         {
-            var user = GetById(id);
-
-            if (user is null)
-            {
-                throw new Exception("Usuário não encontrado");
-            }
-
+            entity.IsDeleted = true;
             _context.SaveChanges();
         }
 

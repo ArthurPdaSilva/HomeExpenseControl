@@ -32,7 +32,6 @@ namespace Web.Controllers
             }
         }
 
-        // PUT api/<UserController>/5
         [HttpPut("{id}")]
         public ActionResult Put(Guid id, [FromBody] UserDTO updateUser)
         {
@@ -47,10 +46,44 @@ namespace Web.Controllers
             }
         }
 
-        // DELETE api/<UserController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public ActionResult Delete(Guid id)
         {
+            try
+            {
+                _userService.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Get()
+        {
+            try
+            {
+                return Ok(_userService.GetAll());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("{id}")]
+        public ActionResult Get(Guid id)
+        {
+            try
+            {
+                return Ok(_userService.GetById(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

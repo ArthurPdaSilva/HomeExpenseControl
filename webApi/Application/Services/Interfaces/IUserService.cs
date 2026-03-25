@@ -9,5 +9,8 @@ namespace Application.Services.Interfaces
     {
         public void Create(UserDTO user);
         public void Update(Guid id, UserDTO user);
+        public void Delete(Guid id);
+        public IList<UserListDTO> GetAll();
+        public UserDTO GetById(Guid id);
     }
 }

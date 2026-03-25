@@ -11,7 +11,9 @@ namespace Application.Mapping
     {
         public MappingContext()
         {
-            CreateMap<UserDTO, User>();
+            // Mapeando UserDTO para User e vice-versa
+            CreateMap<UserDTO, User>().ReverseMap();
+            CreateMap<User, UserListDTO>();
         }
     }
 }

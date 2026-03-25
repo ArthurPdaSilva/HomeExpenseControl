@@ -15,6 +15,9 @@ namespace Domain
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            //Isso é um filtro global para o usuário, ou seja, no get não vai buscar usuários que foram apagados
+            modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDeleted);
         }
     }
 }
