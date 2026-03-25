@@ -11,6 +11,6 @@ namespace Domain.Entities
         public Guid Id { get; set; }
         public required string Description { get; set; }
         // Atributo responsável pelas categorias
-        public required PurposeType Purpose { get; set; }
+        public required EPurposeType Purpose { get; set; }
     }
 }

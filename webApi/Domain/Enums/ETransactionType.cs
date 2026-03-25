@@ -1,12 +1,11 @@
 ﻿namespace Domain.Enums
 {
     /// <summary>
-    /// Enum que representa os tipos de finalidades que uma categoria pode ter
+    /// Enum que representa os tipos de transações (despesa e receita
     /// </summary>
-    public enum EPurposeType
+    public enum ETransactionType
     {
         Expense = 1, // Despesas
         Income = 2, // Receitas
-        Both = 3 // Ambos
     }
 }

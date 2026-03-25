@@ -10,6 +10,7 @@ namespace Domain
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Transaction> Transactions { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
@@ -17,8 +18,22 @@ namespace Domain
         {
             base.OnModelCreating(modelBuilder);
 
-            //Isso é um filtro global para o usuário, ou seja, no get não vai buscar usuários que foram apagados
+            //Isso é um filtro global para o usuário e transação, ou seja, no get não vai buscar usuários ou transações que foram apagados
             modelBuilder.Entity<User>().HasQueryFilter(u => !u.IsDeleted);
+            modelBuilder.Entity<Transaction>().HasQueryFilter(t => !t.IsDeleted);
+
+            // Configuração da relação usuário x transação (1 para Muitos)
+            modelBuilder.Entity<Transaction>()
+                .HasOne<User>()
+                .WithMany()
+                .HasForeignKey(t => t.UserId)
+                .OnDelete(DeleteBehavior.Cascade); // Apagou o User, apaga as Transactions juntos
+
+            // Configuração da relação categoria x transação (1 para 1)
+            modelBuilder.Entity<Transaction>()
+                .HasOne<Category>() 
+                .WithOne()          
+                .HasForeignKey<Transaction>(t => t.CategoryId); 
         }
     }
 }

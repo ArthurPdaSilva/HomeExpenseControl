@@ -10,6 +10,6 @@ namespace Application.DTOs.CategoryDTOs
     {
         public required Guid Id { get; set; }
         public required string Description { get; set; }
-        public required PurposeType Purpose { get; set; }
+        public required EPurposeType Purpose { get; set; }
     }
 }
