@@ -33,6 +33,14 @@ export const TotalsByUser = () => {
 				header: "Saldo",
 				Cell: ({ cell }) => <ValueField value={cell.getValue() as number} />,
 			},
+			{
+				accessorKey: "createdAt",
+				header: "Criado em",
+				Cell: ({ cell }) => {
+					const v = cell.getValue() as UserDashboard["createdAt"];
+					return v ? new Date(v).toLocaleString() : "-";
+				},
+			},
 		],
 		[],
 	);

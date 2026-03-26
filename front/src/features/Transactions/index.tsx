@@ -44,6 +44,14 @@ export const Transactions = () => {
 				accessorKey: "userName",
 				header: "Pessoa",
 			},
+			{
+				accessorKey: "createdAt",
+				header: "Criado em",
+				Cell: ({ cell }) => {
+					const v = cell.getValue() as Transaction["createdAt"];
+					return v ? new Date(v).toLocaleString() : "-";
+				},
+			},
 		],
 		[],
 	);

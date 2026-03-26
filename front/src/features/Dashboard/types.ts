@@ -7,9 +7,11 @@ export type GeneralDashboard = {
 export type UserDashboard = GeneralDashboard & {
 	userId: string;
 	userName: string;
+	createdAt: string;
 };
 
 export type CategoryDashboard = GeneralDashboard & {
 	categoryId: string;
 	categoryDescription: string;
+	createdAt: string;
 };

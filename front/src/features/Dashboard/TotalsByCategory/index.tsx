@@ -33,6 +33,14 @@ export const TotalsByCategory = () => {
 				header: "Saldo",
 				Cell: ({ cell }) => <ValueField value={cell.getValue() as number} />,
 			},
+			{
+				accessorKey: "createdAt",
+				header: "Criado em",
+				Cell: ({ cell }) => {
+					const v = cell.getValue() as CategoryDashboard["createdAt"];
+					return v ? new Date(v).toLocaleString() : "-";
+				},
+			},
 		],
 		[],
 	);

@@ -14,6 +14,7 @@ export type Transaction = {
 	type: ETransactionType;
 	categoryDescription: string;
 	userName: string;
+	createdAt: string;
 };
 
 export const ETransactionTypeMap: Record<ETransactionType, string> = {

@@ -1,9 +1,9 @@
 import { Pencil, Trash2 } from "lucide-react";
 import {
-	MRT_ActionMenuItem,
-	type MRT_ColumnDef,
-	type MRT_Row,
-	type MRT_TableInstance,
+    MRT_ActionMenuItem,
+    type MRT_ColumnDef,
+    type MRT_Row,
+    type MRT_TableInstance,
 } from "material-react-table";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router";
@@ -34,6 +34,14 @@ export const Users = () => {
 			{
 				accessorKey: "age",
 				header: "Idade",
+			},
+			{
+				accessorKey: "createdAt",
+				header: "Criado em",
+				Cell: ({ cell }) => {
+					const v = cell.getValue() as User["createdAt"];
+					return v ? new Date(v).toLocaleString() : "-";
+				},
 			},
 		],
 		[],

@@ -28,6 +28,14 @@ export const Categories = () => {
 					return getPurposeLabel(value);
 				},
 			},
+			{
+				accessorKey: "createdAt",
+				header: "Criado em",
+				Cell: ({ cell }) => {
+					const v = cell.getValue() as Category["createdAt"];
+					return v ? new Date(v).toLocaleString() : "-";
+				},
+			},
 		],
 		[],
 	);

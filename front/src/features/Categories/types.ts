@@ -11,6 +11,7 @@ export type Category = {
 	id: string;
 	description: string;
 	purpose: EPurposeType;
+	createdAt: string;
 };
 
 // Pegar a label através do valor do enum, caso o valor não exista, retornar o valor como string
