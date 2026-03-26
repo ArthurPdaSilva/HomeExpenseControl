@@ -7,5 +7,6 @@
     {
         public Guid CategoryId { get; set; }
         public required string CategoryDescription { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

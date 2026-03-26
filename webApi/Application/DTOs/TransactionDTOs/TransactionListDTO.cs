@@ -10,5 +10,6 @@ namespace Application.DTOs.TransactionDTOs
         public required ETransactionType Type { get; set; }
         public required string CategoryDescription { get; set; }
         public required string UserName { get; set; }
+        public DateTime CreatedAt { get; set; }
     }
 }

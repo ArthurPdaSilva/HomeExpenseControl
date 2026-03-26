@@ -5,9 +5,8 @@ namespace Domain.Entities
     /// <summary>
     /// Representa a entidade de persistência de Transação
     /// </summary>
-    public class Transaction
+    public class Transaction : BaseEntity
     {
-        public Guid Id { get; set; }
         public required string Description { get; set; }
         public required decimal Value { get; set; }
         public required ETransactionType Type { get; set; }

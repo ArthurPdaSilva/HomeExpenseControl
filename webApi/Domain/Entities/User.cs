@@ -4,9 +4,8 @@
     /// <summary>
     /// Representa a entidade de persitência do Usuário (contendo Id, Name, Age e isDeleted)
     /// </summary>
-    public class User
+    public class User : BaseEntity
     {
-        public Guid Id { get; set; }
         public required string Name { get; set; }
         public required int Age { get; set; }
 

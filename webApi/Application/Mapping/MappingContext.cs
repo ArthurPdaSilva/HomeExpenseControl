@@ -26,9 +26,9 @@ namespace Application.Mapping
 
             //Realizando o mapeamento de Transaction para TransactionListDTO, incluindo os campos de UserName e CategoryDescription para facilitar a exibição nas tabelas
             CreateMap<Transaction, TransactionListDTO>()
-                .ForMember(dest => dest.UserName, 
+                .ForMember(dest => dest.UserName,
                            opt => opt.MapFrom(src => src.User != null ? src.User.Name : string.Empty))
-                .ForMember(dest => dest.CategoryDescription, 
+                .ForMember(dest => dest.CategoryDescription,
                            opt => opt.MapFrom(src => src.Category != null ? src.Category.Description : null));
         }
     }

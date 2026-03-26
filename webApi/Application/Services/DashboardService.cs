@@ -25,6 +25,7 @@ namespace Application.Services
             {
                 UserId = u.Id,
                 UserName = u.Name,
+                CreatedAt = u.CreatedAt,
                 // Se não houver transações, o Sum retornará 0 automaticamente
                 TotalIncome = u.Transactions
                     .Where(t => t.Type == ETransactionType.Income)
@@ -45,6 +46,7 @@ namespace Application.Services
             {
                 CategoryId = c.Id,
                 CategoryDescription = c.Description,
+                CreatedAt = c.CreatedAt,
                 TotalIncome = c.Transactions
                     .Where(t => t.Type == ETransactionType.Income)
                     .Sum(t => t.Value),

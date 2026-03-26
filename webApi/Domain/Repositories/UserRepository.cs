@@ -1,5 +1,4 @@
 ﻿using Domain.Entities;
-using Domain.Migrations;
 using Domain.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
@@ -39,12 +38,16 @@ namespace Domain.Repositories
 
         public async Task<IList<User>> GetAllAsync()
         {
-            return await _context.Users.AsNoTracking().ToListAsync();
+            return await _context.Users.OrderByDescending(x => x.CreatedAt).AsNoTracking().ToListAsync();
         }
 
         public async Task<IList<User>> GetAllWithTransactionsAsync()
         {
-            return await _context.Users.Include(x => x.Transactions).AsNoTracking().ToListAsync();
+            return await _context.Users
+                            .Include(x => x.Transactions)
+                            .OrderByDescending(x => x.CreatedAt)
+                            .AsNoTracking()
+                            .ToListAsync();
         }
 
         public async Task<User?> GetByIdAsync(Guid id)

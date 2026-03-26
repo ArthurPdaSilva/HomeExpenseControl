@@ -6,9 +6,8 @@ namespace Domain.Entities
     /// <summary>
     /// Representa a entidade de persitência da Categoria (contendo Id, Description e Purpose)
     /// </summary>
-    public class Category
+    public class Category : BaseEntity
     {
-        public Guid Id { get; set; }
         public required string Description { get; set; }
         // Atributo responsável pelas categorias
         public required EPurposeType Purpose { get; set; }

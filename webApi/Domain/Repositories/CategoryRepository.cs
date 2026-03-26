@@ -25,7 +25,7 @@ namespace Domain.Repositories
         public async Task<IList<Category>> GetAllAsync()
         {
             //AsNoTracking é para ele não gastar processamento trackeando em consultas
-            return await _context.Categories.AsNoTracking().ToListAsync();
+            return await _context.Categories.OrderByDescending(x => x.CreatedAt).AsNoTracking().ToListAsync();
         }
 
         public async Task<Category?> GetByIdAsync(Guid id)
@@ -35,7 +35,11 @@ namespace Domain.Repositories
 
         public async Task<IList<Category>> GetAllWithTransactionsAsync()
         {
-            return await _context.Categories.Include(x => x.Transactions).AsNoTracking().ToListAsync();
+            return await _context.Categories
+                            .Include(x => x.Transactions)
+                            .OrderByDescending(x => x.CreatedAt)  //Ordena por data de criação, do mais recente para o mais antigo
+                            .AsNoTracking()
+                            .ToListAsync();
         }
 
         //Delete e Update não serão implementados na Categoria
@@ -49,6 +53,6 @@ namespace Domain.Repositories
             throw new NotImplementedException();
         }
 
-       
+
     }
 }
