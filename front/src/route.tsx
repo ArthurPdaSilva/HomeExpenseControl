@@ -1,4 +1,5 @@
 import { Route, Routes } from "react-router";
+import { AddCategory } from "./features/Categories/Add/index.tsx";
 import { Categories } from "./features/Categories/index.tsx";
 import { Transactions } from "./features/Transactions/index.tsx";
 import { AddUser } from "./features/Users/Add/index.tsx";
@@ -21,12 +22,10 @@ export const RouteRoot = () => {
 				</Route>
 				<Route path="categories">
 					<Route index element={<Categories />} />
-					<Route path=":id" element={<Categories />} />
-					<Route path="add-categories" element={<Categories />} />
+					<Route path="add-category" element={<AddCategory />} />
 				</Route>
 				<Route path="transactions">
 					<Route index element={<Transactions />} />
-					<Route path=":id" element={<Transactions />} />
 					<Route path="add-transactions" element={<Transactions />} />
 				</Route>
 			</Route>

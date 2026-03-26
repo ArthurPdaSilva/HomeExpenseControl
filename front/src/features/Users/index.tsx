@@ -7,6 +7,7 @@ import {
 } from "material-react-table";
 import { useMemo, useState } from "react";
 import { useNavigate } from "react-router";
+import { CustomAlert } from "../../components/CustomAlert";
 import { DeleteModal } from "../../components/DeleteModal";
 import { ListTemplate } from "../../Templates/ListTemplate";
 import { useDeleteUser, useGetUsers } from "./services";
@@ -74,9 +75,11 @@ export const Users = () => {
 			onSuccess: () => {
 				setDeleteOpen(false);
 				setDeleteId(null);
+				CustomAlert.success("Usuário deletado com sucesso!");
 			},
 			onError: (error) => {
 				console.error("Failed to delete user:", error);
+				CustomAlert.error("Falha ao deletar usuário. Tente novamente.");
 			},
 		});
 	};

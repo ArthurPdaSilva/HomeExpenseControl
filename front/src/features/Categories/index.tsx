@@ -1,5 +1,6 @@
 import type { MRT_ColumnDef } from "material-react-table";
 import { useMemo } from "react";
+import { useNavigate } from "react-router";
 import { ListTemplate } from "../../Templates/ListTemplate";
 import { useGetCategories } from "./services";
 import { type Category, getPurposeLabel } from "./types";
@@ -10,6 +11,7 @@ import { type Category, getPurposeLabel } from "./types";
  */
 export const Categories = () => {
 	const { data, isFetching } = useGetCategories();
+	const navigate = useNavigate();
 
 	// Configuração das colunas da tabela de Categorias
 	const columns = useMemo<MRT_ColumnDef<Category>[]>(
@@ -34,6 +36,7 @@ export const Categories = () => {
 		<ListTemplate<Category>
 			columns={columns}
 			data={data || []}
+			handleAdd={() => navigate("add-category")}
 			title="Categorias"
 			isFetching={isFetching}
 		/>
