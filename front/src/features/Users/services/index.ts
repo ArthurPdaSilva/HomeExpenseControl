@@ -52,6 +52,9 @@ export const useDeleteUser = () => {
 		onSuccess: () => {
 			// Invalido a querie de usuários para que ela seja refetchada e mostre os dados atualizados após a deleção
 			queryClient.invalidateQueries({ queryKey: ["users"] });
+			// Como usuários estão relacionados a transações, é bom atualizar a lista de transações também
+			queryClient.invalidateQueries({ queryKey: ["transactions"] });
+			queryClient.invalidateQueries({ queryKey: ["user-total"] });
 		},
 	});
 };

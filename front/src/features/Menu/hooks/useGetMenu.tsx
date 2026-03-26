@@ -21,14 +21,14 @@ type MenuProps = {
 		| "Usuários"
 		| "Categorias"
 		| "Transações"
-		| "Totais por Pessoa"
+		| "Totais por Usuário"
 		| "Totais por Categoria";
 	link:
 		| "/"
 		| "/categories"
 		| "/transactions"
-		| "/totals-by-person"
-		| "/totals-by-category";
+		| "/dashboard/totals-by-user"
+		| "/dashboard/totals-by-category";
 	Icon: JSX.Element;
 };
 
@@ -37,13 +37,13 @@ const menu: MenuProps[] = [
 	{ title: "Categorias", link: "/categories", Icon: <LayoutGrid /> },
 	{ title: "Transações", link: "/transactions", Icon: <ArrowLeftRight /> },
 	{
-		title: "Totais por Pessoa",
-		link: "/totals-by-person",
+		title: "Totais por Usuário",
+		link: "/dashboard/totals-by-user",
 		Icon: <UserCheck />,
 	},
 	{
 		title: "Totais por Categoria",
-		link: "/totals-by-category",
+		link: "/dashboard/totals-by-category",
 		Icon: <PieChart />,
 	},
 ];

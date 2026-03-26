@@ -19,7 +19,7 @@ type ListTemplateProps<T extends MRT_RowData> = {
 	data: T[];
 	isFetching: boolean;
 	columns: MRT_ColumnDef<T, unknown>[];
-	handleAdd: () => void;
+	handleAdd?: () => void;
 	renderRowActionMenuItems?: ({
 		row,
 		table,
@@ -29,10 +29,12 @@ type ListTemplateProps<T extends MRT_RowData> = {
 		table: MRT_TableInstance<T>;
 		closeMenu: () => void;
 	}) => JSX.Element[];
+	children?: React.ReactNode;
 };
 
 /**
  * Componente Template para Listagem de Dados
+ * Porém, se aumentar a complexidade transformarei em um Composite Component
  * Utiliza Generics para ser flexível e reutilizável entre as páginas de listagem (ex: Usuários, Categorias, etc)
  */
 export const ListTemplate = <T extends MRT_RowData>({
@@ -42,6 +44,7 @@ export const ListTemplate = <T extends MRT_RowData>({
 	columns,
 	renderRowActionMenuItems,
 	handleAdd,
+	children,
 }: ListTemplateProps<T>) => {
 	return (
 		<div className="flex flex-col flex-1 gap-5">
@@ -63,11 +66,13 @@ export const ListTemplate = <T extends MRT_RowData>({
 					<>
 						<MRT_ToggleGlobalFilterButton table={table} />
 						{/* Estou basicamente dando um override nos botões internos e adicionando meu botão de add */}
-						<Tooltip title={`Adicionar ${title}`} placement="bottom">
-							<IconButton sx={{ color: "gray" }} onClick={handleAdd}>
-								<Plus />
-							</IconButton>
-						</Tooltip>
+						{handleAdd && (
+							<Tooltip title={`Adicionar ${title}`} placement="bottom">
+								<IconButton sx={{ color: "gray" }} onClick={handleAdd}>
+									<Plus />
+								</IconButton>
+							</Tooltip>
+						)}
 						<MRT_ToggleFiltersButton table={table} />
 						<MRT_ShowHideColumnsButton table={table} />
 						<MRT_ToggleDensePaddingButton table={table} />
@@ -75,6 +80,7 @@ export const ListTemplate = <T extends MRT_RowData>({
 					</>
 				)}
 			/>
+			{children}
 		</div>
 	);
 };

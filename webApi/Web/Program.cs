@@ -43,6 +43,8 @@ namespace Web
             builder.Services.AddScoped<ITransactionService, TransactionService>();
             builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
+            builder.Services.AddScoped<IDashboardService, DashboardService>();
+
 
             //Configurando Log Personalizado nos controllers
             builder.Services.AddControllersWithViews(options =>

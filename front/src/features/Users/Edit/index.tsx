@@ -12,9 +12,21 @@ import { UserFormTemplate } from "../templates/UserFormTemplate";
 export const EditUser = () => {
 	// Pegar o guid do usuário da URL
 	const { id } = useParams<{ id: string }>();
-	const { data: user } = useGetUser(id);
+	const { data: user, isFetching } = useGetUser(id);
 	const { mutate: updateUser, isPending } = useUpdateUser();
 	const navigate = useNavigate();
+
+	if (!id) {
+		navigate("/");
+		return null;
+	}
+
+	// Validações extras, só para garantir que um usuário que não existe ou foi apagado não seja possível editar
+	if (!user && !isFetching) {
+		CustomAlert.error("Usuário não encontrado.");
+		navigate("/");
+		return null;
+	}
 
 	const onSubmit = (data: UserValidation) => {
 		updateUser(data, {

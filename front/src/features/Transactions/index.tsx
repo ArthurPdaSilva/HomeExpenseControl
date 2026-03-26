@@ -1,6 +1,7 @@
 import type { MRT_ColumnDef } from "material-react-table";
 import { useMemo } from "react";
 import { useNavigate } from "react-router";
+import { ValueField } from "../../components/ValueField";
 import { ListTemplate } from "../../Templates/ListTemplate";
 import { useGetTransactions } from "./services";
 import { getTransactionTypeLabel, type Transaction } from "./types";
@@ -24,12 +25,7 @@ export const Transactions = () => {
 				accessorKey: "value",
 				header: "Valor",
 				Cell: ({ cell }) => {
-					// To apenas formatar o valor como moeda brasileira, sem precisar criar um campo extra no backend ou coisa assim.
-					const value = cell.getValue() as number;
-					return value.toLocaleString("pt-BR", {
-						style: "currency",
-						currency: "BRL",
-					});
+					return <ValueField value={cell.getValue() as number} />;
 				},
 			},
 			{
