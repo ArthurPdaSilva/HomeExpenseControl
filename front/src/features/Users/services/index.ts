@@ -55,6 +55,8 @@ export const useDeleteUser = () => {
 			// Como usuários estão relacionados a transações, é bom atualizar a lista de transações também
 			queryClient.invalidateQueries({ queryKey: ["transactions"] });
 			queryClient.invalidateQueries({ queryKey: ["user-total"] });
+			// Como as categorias estão ligadas as transações, é bom atualizar a lista de categorias também, para atualizar os totais de cada categoria caso uma transação seja deletada por causa da deleção do usuário
+			queryClient.invalidateQueries({ queryKey: ["category-total"] });
 		},
 	});
 };
