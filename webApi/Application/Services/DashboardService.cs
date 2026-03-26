@@ -1,60 +1,57 @@
 ﻿using Application.DTOs.DashboardDTOs;
-using Application.DTOs.TransactionDTOs;
 using Application.Services.Interfaces;
-using AutoMapper;
-using Domain.Entities;
 using Domain.Enums;
 using Domain.Repositories.Interfaces;
-using FluentValidation;
 
 namespace Application.Services
 {
-    /// <summary>
-    /// Serviço responsável por realizar as operações para pegar o total para o Dashboard, ou seja, o total de receitas, despesas e saldo.
-    /// </summary>
     public class DashboardService : IDashboardService
     {
-        private readonly ITransactionRepository _transactionRepository;
-        //Optei por não usar o Mapper e nem o Validator, pois as operações para pegar os totais são bem simples e não tem necessidade de criar DTOs específicos para isso, já que a maioria dos dados que precisamos já estão na entidade de Transação.
+        private readonly IUserRepository _userRepository;
+        private readonly ICategoryRepository _categoryRepository;
 
-        public DashboardService(ITransactionRepository transactionRepository)
+        public DashboardService(IUserRepository userRepository, ICategoryRepository categoryRepository)
         {
-            _transactionRepository = transactionRepository;
-        }
-
-        public async Task<IList<CategoryDashboardDTO>> GetTotalByCategoryAsync()
-        {
-            //Como transaction já inclui categorias e users, podemos só dar um get all aqui
-            var transactions = await _transactionRepository.GetAllAsync();
-            return transactions
-            .GroupBy(t => new { t.CategoryId, t.Category.Description })
-            .Select(g => new CategoryDashboardDTO
-            {
-                CategoryId = g.Key.CategoryId,
-                CategoryDescription = g.Key.Description,
-                // Soma apenas se o tipo for Income (2)
-                TotalIncome = g.Where(t => t.Type == ETransactionType.Income).Sum(t => t.Value),
-                // Soma apenas se o tipo for Expense (1)
-                TotalExpense = g.Where(t => t.Type == ETransactionType.Expense).Sum(t => t.Value),
-               
-            })
-            .ToList();
+            _userRepository = userRepository;
+            _categoryRepository = categoryRepository;
         }
 
         public async Task<IList<UserDashboardDTO>> GetTotalByUserAsync()
         {
-            var transactions = await _transactionRepository.GetAllAsync();
-            return transactions
-            .GroupBy(t => new { t.UserId, t.User.Name})
-            .Select(u => new UserDashboardDTO
-            {
-                UserId = u.Key.UserId,
-                UserName = u.Key.Name,
-                TotalIncome = u.Where(t => t.Type == ETransactionType.Income).Sum(t => t.Value),
-                TotalExpense = u.Where(t => t.Type == ETransactionType.Expense).Sum(t => t.Value),
+            // Buscando todos os usuários, incluindo suas transações (Tinha esquecido que precisava buscar todos os usuários e categorias tendo transações ou não).
+            var users = await _userRepository.GetAllWithTransactionsAsync();
 
-            })
-            .ToList();
+            return users.Select(u => new UserDashboardDTO
+            {
+                UserId = u.Id,
+                UserName = u.Name,
+                // Se não houver transações, o Sum retornará 0 automaticamente
+                TotalIncome = u.Transactions
+                    .Where(t => t.Type == ETransactionType.Income)
+                    .Sum(t => t.Value),
+                TotalExpense = u.Transactions
+                    .Where(t => t.Type == ETransactionType.Expense)
+                    .Sum(t => t.Value)
+            }).ToList();
+        }
+
+        public async Task<IList<CategoryDashboardDTO>> GetTotalByCategoryAsync()
+        {
+            // Buscando todas as categorias, incluindo suas transações
+            var categories = await _categoryRepository.GetAllWithTransactionsAsync();
+
+            // Também achei que não compesava fazer um mapping aqui.
+            return categories.Select(c => new CategoryDashboardDTO
+            {
+                CategoryId = c.Id,
+                CategoryDescription = c.Description,
+                TotalIncome = c.Transactions
+                    .Where(t => t.Type == ETransactionType.Income)
+                    .Sum(t => t.Value),
+                TotalExpense = c.Transactions
+                    .Where(t => t.Type == ETransactionType.Expense)
+                    .Sum(t => t.Value)
+            }).ToList();
         }
     }
 }

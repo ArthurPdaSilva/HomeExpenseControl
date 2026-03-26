@@ -39,6 +39,7 @@ export const useCreateTransaction = () => {
 			// Invalido a querie de transações para que ela seja refetchada e mostre os dados atualizados após a criação
 			queryClient.invalidateQueries({ queryKey: ["transactions"] });
 			queryClient.invalidateQueries({ queryKey: ["user-total"] });
+			queryClient.invalidateQueries({ queryKey: ["category-total"] });
 		},
 	});
 };

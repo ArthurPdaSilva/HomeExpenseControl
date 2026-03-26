@@ -38,6 +38,8 @@ export const useCreateCategory = () => {
 		},
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ["categories"] });
+			// Como categorias estão relacionadas a transações, é bom atualizar a lista de transações também
+			queryClient.invalidateQueries({ queryKey: ["category-total"] });
 		},
 	});
 };

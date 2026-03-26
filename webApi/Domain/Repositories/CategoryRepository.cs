@@ -33,6 +33,11 @@ namespace Domain.Repositories
             return await _context.Categories.FindAsync(id);
         }
 
+        public async Task<IList<Category>> GetAllWithTransactionsAsync()
+        {
+            return await _context.Categories.Include(x => x.Transactions).AsNoTracking().ToListAsync();
+        }
+
         //Delete e Update não serão implementados na Categoria
         public Task DeleteAsync(Category entity)
         {
@@ -43,5 +48,7 @@ namespace Domain.Repositories
         {
             throw new NotImplementedException();
         }
+
+       
     }
 }
