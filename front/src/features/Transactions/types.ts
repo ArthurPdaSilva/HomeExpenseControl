@@ -8,12 +8,12 @@ export type ETransactionType =
 	(typeof ETransactionType)[keyof typeof ETransactionType];
 
 export type Transaction = {
-	Id: string;
-	Description: string;
-	Value: number;
-	Type: ETransactionType;
-	CategoryDescription: string;
-	UserName: string;
+	id: string;
+	description: string;
+	value: number;
+	type: ETransactionType;
+	categoryDescription: string;
+	userName: string;
 };
 
 export const ETransactionTypeMap: Record<ETransactionType, string> = {

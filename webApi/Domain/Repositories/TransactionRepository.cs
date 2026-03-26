@@ -24,7 +24,7 @@ namespace Domain.Repositories
 
         public async Task<IList<Transaction>> GetAllAsync()
         {
-            return await _context.Transactions.AsNoTracking().ToListAsync();
+            return await _context.Transactions.Include(x => x.Category).Include(x => x.User).AsNoTracking().ToListAsync();
         }
 
         public async Task<Transaction?> GetByIdAsync(Guid id)

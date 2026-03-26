@@ -1,5 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { BASE_URL } from "../../../config/api";
+import { queryClient } from "../../../config/queryClient";
+import type { TransactionValidation } from "../Add/schema";
 import type { Transaction } from "../types";
 
 /**
@@ -14,5 +16,28 @@ export const useGetTransactions = () => {
 			return await response.json();
 		},
 		retry: false,
+	});
+};
+
+/**
+ * Hook para criar uma transação na API
+ */
+export const useCreateTransaction = () => {
+	return useMutation({
+		mutationFn: async (data: TransactionValidation) => {
+			const response = await fetch(`${BASE_URL}/api/Transaction`, {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify(data),
+			});
+			if (!response.ok)
+				throw new Error(`Failed to create transaction: ${response.status}`);
+		},
+		onSuccess: () => {
+			// Invalido a querie de transações para que ela seja refetchada e mostre os dados atualizados após a criação
+			queryClient.invalidateQueries({ queryKey: ["transactions"] });
+		},
 	});
 };

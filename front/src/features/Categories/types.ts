@@ -8,9 +8,9 @@ export const EPurposeType = {
 export type EPurposeType = (typeof EPurposeType)[keyof typeof EPurposeType];
 
 export type Category = {
-	Id: string;
-	Description: string;
-	Purpose: EPurposeType;
+	id: string;
+	description: string;
+	purpose: EPurposeType;
 };
 
 // Pegar a label através do valor do enum, caso o valor não exista, retornar o valor como string

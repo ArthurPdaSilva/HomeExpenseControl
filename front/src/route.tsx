@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router";
 import { AddCategory } from "./features/Categories/Add/index.tsx";
 import { Categories } from "./features/Categories/index.tsx";
+import { AddTransaction } from "./features/Transactions/Add/index.tsx";
 import { Transactions } from "./features/Transactions/index.tsx";
 import { AddUser } from "./features/Users/Add/index.tsx";
 import { EditUser } from "./features/Users/Edit/index.tsx";
@@ -26,7 +27,7 @@ export const RouteRoot = () => {
 				</Route>
 				<Route path="transactions">
 					<Route index element={<Transactions />} />
-					<Route path="add-transactions" element={<Transactions />} />
+					<Route path="add-transaction" element={<AddTransaction />} />
 				</Route>
 			</Route>
 		</Routes>

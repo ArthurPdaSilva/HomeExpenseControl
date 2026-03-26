@@ -1,5 +1,6 @@
 import type { MRT_ColumnDef } from "material-react-table";
 import { useMemo } from "react";
+import { useNavigate } from "react-router";
 import { ListTemplate } from "../../Templates/ListTemplate";
 import { useGetTransactions } from "./services";
 import { getTransactionTypeLabel, type Transaction } from "./types";
@@ -10,6 +11,7 @@ import { getTransactionTypeLabel, type Transaction } from "./types";
  */
 export const Transactions = () => {
 	const { data, isFetching } = useGetTransactions();
+	const navigate = useNavigate();
 
 	// Configuração das colunas da tabela de Transações
 	const columns = useMemo<MRT_ColumnDef<Transaction>[]>(
@@ -34,17 +36,17 @@ export const Transactions = () => {
 				accessorKey: "type",
 				header: "Tipo",
 				Cell: ({ cell }) => {
-					const value = cell.getValue() as Transaction["Type"];
+					const value = cell.getValue() as Transaction["type"];
 					return getTransactionTypeLabel(value);
 				},
 			},
 			{
-				accessorKey: "CategoryDescription",
+				accessorKey: "categoryDescription",
 				header: "Categoria",
 			},
 			{
-				accessorKey: "UserName",
-				header: "Usuário",
+				accessorKey: "userName",
+				header: "Pessoa",
 			},
 		],
 		[],
@@ -56,6 +58,7 @@ export const Transactions = () => {
 			data={data || []}
 			title="Transações"
 			isFetching={isFetching}
+			handleAdd={() => navigate("add-transaction")}
 		/>
 	);
 };

@@ -24,7 +24,7 @@ export const Categories = () => {
 				accessorKey: "purpose",
 				header: "Finalidade",
 				Cell: ({ cell }) => {
-					const value = cell.getValue() as Category["Purpose"];
+					const value = cell.getValue() as Category["purpose"];
 					return getPurposeLabel(value);
 				},
 			},

@@ -5,7 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
 import { CustomAlert } from "../../../components/CustomAlert";
 import { ErrorField } from "../../../components/ErrorField";
-import { SpinIcon } from "../../../components/SpinIcon";
+import { FormButtons } from "../../../components/FormButtons";
 import { useCreateCategory } from "../services";
 import { EPurposeTypeMap } from "../types";
 import { CategorySchema, type CategoryValidation } from "./schema";
@@ -56,8 +56,11 @@ export const AddCategory = () => {
 
 			<div className="flex flex-col gap-4 mb-4">
 				<div className="flex-1 flex flex-col gap-1">
-					<label htmlFor="name" className="text-sm font-medium text-gray-700">
-						Nome
+					<label
+						htmlFor="description"
+						className="text-sm font-medium text-gray-700"
+					>
+						Descrição
 					</label>
 					<Controller
 						name="description"
@@ -109,33 +112,7 @@ export const AddCategory = () => {
 					)}
 				</div>
 			</div>
-
-			<div className="flex gap-2 justify-end w-full">
-				<button
-					id="btn-cancel"
-					type="button"
-					onClick={() => navigate(-1)}
-					disabled={isPending}
-					className="cursor-pointer px-8 py-2.5 bg-white text-gray-700 font-semibold rounded-md hover:bg-gray-200 disabled:bg-gray-300 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
-				>
-					Voltar
-				</button>
-				<button
-					id="btn-save"
-					type="submit"
-					disabled={isPending}
-					className="cursor-pointer px-8 py-2.5 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 disabled:bg-blue-300 disabled:cursor-not-allowed transition-colors flex items-center justify-center gap-2"
-				>
-					{isPending ? (
-						<>
-							<SpinIcon />
-							Salvando...
-						</>
-					) : (
-						"Salvar"
-					)}
-				</button>
-			</div>
+			<FormButtons isPending={isPending} />
 		</form>
 	);
 };
