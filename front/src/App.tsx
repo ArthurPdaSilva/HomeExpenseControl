@@ -9,6 +9,7 @@ export const App = () => {
 	return (
 		<QueryClientProvider client={queryClient}>
 			{/* Devtools é uma ferramenta que consigo monitorar as ferramentas do Tanstack, no caso eu só quero monitorar as requisições feitas pelo tanstack query */}
+			{/* Se eu subisse para prod, esse painel seria removido */}
 			<TanStackDevtools
 				plugins={[
 					{

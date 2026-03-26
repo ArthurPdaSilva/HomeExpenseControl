@@ -119,6 +119,7 @@ Swagger (apenas em desenvolvimento):
 4. Ajuste `VITE_API_BASE_URL` no `front/.env` para a URL da API.
 5. Inicie o frontend (`pnpm dev` em `front`).
 6. Acesse a aplicação em `http://localhost:5173`.
+7. Para motivos de depuração use o Swagger que estará na rota da api/swagger/index.html ou o tanstack query dev tools
 
 ## Resumo das funcionalidades
 
